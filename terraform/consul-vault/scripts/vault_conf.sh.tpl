@@ -4,7 +4,7 @@
 set -e
 
 FILE_FINAL=/etc/systemd/system/vault.d/config.json
-FILE_TMP=$FILE_FINAL.tmp
+FILE_TMP=${FILE_FINAL}.tmp
 
 sudo sed -i -- "s/{{ YOUR_ATLAS_TOKEN }}/${atlas_token}/g" $FILE_TMP
 sudo sed -i -- "s/{{ YOUR_ATLAS_USERNAME }}/${atlas_username}/g" $FILE_TMP
@@ -14,8 +14,5 @@ METADATA_INSTANCE_ID=`curl http://169.254.169.254/2014-02-25/meta-data/instance-
 sudo sed -i -- "s/{{ instance-id }}/$METADATA_INSTANCE_ID/g" $FILE_TMP
 
 sudo mv $FILE_TMP $FILE_FINAL
-
-sudo systemctl enable vault.service
-sudo systemctl start vault || sudo systemctl restart vault
 
 exit 0

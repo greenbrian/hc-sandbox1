@@ -58,4 +58,11 @@ resource "aws_instance" "consul-vault" {
     provisioner "remote-exec" {
       inline = ["${data.template_file.vault_conf.rendered}"]
     }
+
+    provisioner "remote-exec" {
+        inline = [
+            "sudo systemctl enable vault.service",
+            "sudo systemctl start vault"
+        ]
+    }    
 }
