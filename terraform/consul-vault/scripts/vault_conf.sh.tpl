@@ -18,6 +18,9 @@ sudo mv $FILE_TMP $FILE_FINAL
 sudo systemctl enable vault.service
 sudo systemctl start vault
 
+export VAULT_SKIP_VERIFY=true
+export VAULT_ADDR=http://127.0.0.1:8200
+
 vault policy-write sys /etc/systemd/system/vault.d/sys.hcl
 
 exit 0
