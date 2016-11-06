@@ -15,7 +15,7 @@
       "source_ami": "ami-40d28157",
       "instance_type": "t2.micro",
       "ssh_username": "ubuntu",
-      "ami_name": "ubuntu-16-consul-vault-{{isotime \"2006-01-02-15-04\"}}",
+      "ami_name": "ubuntu-16-consul-vault-seal-{{isotime \"2006-01-02-15-04\"}}",
       "tags": {
         "OS_Version": "Ubuntu",
         "Release": "Latest"
@@ -75,7 +75,7 @@
         "scripts/consul-ui.sh",
         "scripts/vault.sh"
       ],
-      "only": ["consul-vault"]
+      "only": ["consul-vault-seal"]
     },
     {
       "type": "shell",
@@ -111,7 +111,7 @@
   "post-processors": [
     {
       "type": "atlas",
-      "only": ["consul-vault"],
+      "only": ["consul-vault-seal"],
       "artifact": "{{user `atlas_username`}}/consul-vault-seal",
       "artifact_type": "amazon.image",
       "metadata": {
