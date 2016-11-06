@@ -52,15 +52,20 @@ telemetry {
 
 cluster_name = "test"
 disable_mlock = true
+VAULTCONF
 
+
+
+
+echo "Configuring Vault sys policy..."
+sudo bash -c "cat >/etc/systemd/system/vault.d/sys.hcl" << ACL
 path "sys/capabilities-self" {
   capabilities = ["update"]
 }
 path "sys/mounts" {
   capabilities = ["read"]
 }
-
-VAULTCONF
+ACL
 
 
 echo "Configuring Vault environment..."

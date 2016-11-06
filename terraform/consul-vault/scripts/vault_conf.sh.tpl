@@ -15,4 +15,9 @@ sudo sed -i -- "s/{{ instance-id }}/$METADATA_INSTANCE_ID/g" $FILE_TMP
 
 sudo mv $FILE_TMP $FILE_FINAL
 
+sudo systemctl enable vault.service
+sudo systemctl start vault
+
+vault policy-write sys /etc/systemd/system/vault.d/sys.hcl
+
 exit 0
