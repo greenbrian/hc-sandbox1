@@ -32,9 +32,10 @@ listener "atlas" {
   infrastructure = "{{ YOUR_ATLAS_USERNAME }}/vault-ent-test"
   token          = "{{ YOUR_ATLAS_TOKEN }}"
   node_id        = "{{ instance-id }}"
-  cluster_name   = "test-cluster"
   tls_disable    = 1
 }
+
+cluster_name   = "test-cluster"
 
 backend "consul" {
   address = "127.0.0.1:8500"
