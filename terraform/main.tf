@@ -13,7 +13,7 @@ module "consul-vault" {
   consul_server_count = 3
   subnet_id = "${module.network.subnet_id}"
   xlb_sg_id = "${module.network.xlb_sg_id}"
-  atlas_token = ${var.ATLAS_TOKEN}"
+  atlas_token = "${var.ATLAS_TOKEN}"
   atlas_username = "${var.ATLAS_USERNAME}"
 }
 
