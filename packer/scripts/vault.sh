@@ -26,7 +26,7 @@ sudo netfilter-persistent reload
 
 
 echo "Configuring Vault..."
-sudo bash -c "cat >/etc/systemd/system/vault.d/config.json" << VAULTCONF
+sudo bash -c "cat >/etc/systemd/system/vault.d/config.json.tmp" << VAULTCONF
 
 listener "atlas" {
   infrastructure = "{{ YOUR_ATLAS_USERNAME }}/vault-ent-test"
