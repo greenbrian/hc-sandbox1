@@ -35,8 +35,6 @@ listener "atlas" {
   tls_disable    = 1
 }
 
-cluster_name   = "test-cluster"
-
 backend "consul" {
   address = "127.0.0.1:8500"
   path = "vault"
@@ -54,6 +52,14 @@ telemetry {
 
 cluster_name = "test"
 disable_mlock = true
+
+path "sys/capabilities-self" {
+  capabilities = ["update"]
+}
+path "sys/mounts" {
+  capabilities = ["read"]
+}
+
 VAULTCONF
 
 
