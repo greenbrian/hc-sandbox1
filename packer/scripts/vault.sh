@@ -3,7 +3,7 @@
 set -e
 
 echo "Fetching Vault..."
-VAULT=0.6.1
+VAULT=0.6.2
 cd /tmp
 wget https://releases.hashicorp.com/vault/${VAULT}/vault_${VAULT}_linux_amd64.zip \
     --quiet \
@@ -32,6 +32,7 @@ listener "atlas" {
   infrastructure = "{{ YOUR_ATLAS_USERNAME }}/vault-ent-test"
   token          = "{{ YOUR_ATLAS_TOKEN }}"
   node_id        = "{{ instance-id }}"
+  cluster_name   = "test-cluster"
   tls_disable    = 1
 }
 
