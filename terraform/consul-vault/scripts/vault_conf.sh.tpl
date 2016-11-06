@@ -4,7 +4,7 @@
 set -e
 
 FILE_FINAL=/etc/systemd/system/vault.d/config.json
-FILE_TMP=${FILE_FINAL}.tmp
+FILE_TMP=$FILE_FINAL.tmp
 
 sudo sed -i -- "s/{{ YOUR_ATLAS_TOKEN }}/${atlas_token}/g" $FILE_TMP
 sudo sed -i -- "s/{{ YOUR_ATLAS_USERNAME }}/${atlas_username}/g" $FILE_TMP
