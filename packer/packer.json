@@ -19,6 +19,9 @@
       "tags": {
         "OS_Version": "Ubuntu",
         "Release": "Latest"
+      },
+      "run_tags": {
+        "Name": "Packer"
       }
     }
   ],
