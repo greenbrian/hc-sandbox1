@@ -92,3 +92,8 @@ sudo bash -c "cat >/etc/systemd/system/consul.d/system.json" << SYSTEM
       }]
 }
 SYSTEM
+
+echo "Configuring Nginx firewall rules..."
+sudo iptables -I INPUT -s 0/0 -p tcp --dport 80 -j ACCEPT
+sudo netfilter-persistent save
+sudo netfilter-persistent reload

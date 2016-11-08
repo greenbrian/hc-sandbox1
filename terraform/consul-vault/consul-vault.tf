@@ -6,8 +6,8 @@ variable "xlb_sg_id" {}
 variable "atlas_token" {}
 variable "atlas_username" {}
 
-data "atlas_artifact" "consul-vault-seal" {
-  name = "bgreen/consul-vault-seal"
+data "atlas_artifact" "ubuntu16-sandbox" {
+  name = "bgreen/ubuntu16-sandbox"
   type = "amazon.image"
   build = "latest"
 }
@@ -22,7 +22,7 @@ data "template_file" "vault_conf" {
 }
 
 resource "aws_instance" "consul-vault" {
-    ami = "${data.atlas_artifact.consul-vault-seal.metadata_full.region-us-east-1}"
+    ami = "${data.atlas_artifact.ubuntu16-sandbox.metadata_full.region-us-east-1}"
     instance_type = "t2.micro"
     count = "${var.consul_server_count}"
     subnet_id = "${var.subnet_id}"

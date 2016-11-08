@@ -4,14 +4,14 @@ variable "primary_consul" {}
 variable "subnet_id" {}
 variable "xlb_sg_id" {}
 
-data "atlas_artifact" "haproxy" {
-  name = "bgreen/haproxy"
+data "atlas_artifact" "ubuntu16-sandbox" {
+  name = "bgreen/ubuntu16-sandbox"
   type = "amazon.image"
   build = "latest"
 }
 
 resource "aws_instance" "haproxy" {
-    ami = "${data.atlas_artifact.haproxy.metadata_full.region-us-east-1}"
+    ami = "${data.atlas_artifact.ubuntu16-sandbox.metadata_full.region-us-east-1}"
     instance_type = "t2.micro"
     count = "1"
     subnet_id = "${var.subnet_id}"

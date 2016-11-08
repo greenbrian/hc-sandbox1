@@ -7,7 +7,7 @@
   },
   "builders": [
     {
-      "name": "consul-vault-seal",
+      "name": "ubuntu16-sandbox",
       "type": "amazon-ebs",
       "access_key": "{{user `aws_access_key`}}",
       "secret_key": "{{user `aws_secret_key`}}",
@@ -15,37 +15,7 @@
       "source_ami": "ami-40d28157",
       "instance_type": "t2.micro",
       "ssh_username": "ubuntu",
-      "ami_name": "ubuntu-16-consul-vault-seal-{{isotime \"2006-01-02-15-04\"}}",
-      "tags": {
-        "OS_Version": "Ubuntu",
-        "Release": "Latest"
-      }
-    },
-    {
-      "name": "nginx",
-      "type": "amazon-ebs",
-      "access_key": "{{user `aws_access_key`}}",
-      "secret_key": "{{user `aws_secret_key`}}",
-      "region": "us-east-1",
-      "source_ami": "ami-40d28157",
-      "instance_type": "t2.micro",
-      "ssh_username": "ubuntu",
-      "ami_name": "ubuntu-16-nginx-{{isotime \"2006-01-02-15-04\"}}",
-      "tags": {
-        "OS_Version": "Ubuntu",
-        "Release": "Latest"
-      }
-    },
-    {
-      "name": "haproxy",
-      "type": "amazon-ebs",
-      "access_key": "{{user `aws_access_key`}}",
-      "secret_key": "{{user `aws_secret_key`}}",
-      "region": "us-east-1",
-      "source_ami": "ami-40d28157",
-      "instance_type": "t2.micro",
-      "ssh_username": "ubuntu",
-      "ami_name": "ubuntu-16-haproxy-{{isotime \"2006-01-02-15-04\"}}",
+      "ami_name": "ubuntu-16-sandbox-{{isotime \"2006-01-02-15-04\"}}",
       "tags": {
         "OS_Version": "Ubuntu",
         "Release": "Latest"
@@ -66,26 +36,12 @@
       "scripts": [
         "scripts/base.sh",
         "scripts/consul.sh",
-        "scripts/consul-template.sh"
-      ]
-    },
-    {
-      "type": "shell",
-      "scripts": [
+        "scripts/consul-template.sh",
         "scripts/consul-ui.sh",
-        "scripts/vault.sh"
-      ],
-      "only": ["consul-vault-seal"]
-    },
-    {
-      "type": "shell",
-      "script": "scripts/haproxy.sh",
-      "only": ["haproxy"]
-    },
-    {
-      "type": "shell",
-      "script": "scripts/nginx.sh",
-      "only": ["nginx"]
+        "scripts/vault.sh",
+        "scripts/haproxy.sh",
+        "scripts/nginx.sh"
+      ]
     },
     {
       "type": "shell",
@@ -111,26 +67,8 @@
   "post-processors": [
     {
       "type": "atlas",
-      "only": ["consul-vault-seal"],
-      "artifact": "{{user `atlas_username`}}/consul-vault-seal",
-      "artifact_type": "amazon.image",
-      "metadata": {
-        "created_at": "{{timestamp}}"
-      }
-    },
-    {
-      "type": "atlas",
-      "only": ["nginx"],
-      "artifact": "{{user `atlas_username`}}/nginx",
-      "artifact_type": "amazon.image",
-      "metadata": {
-        "created_at": "{{timestamp}}"
-      }
-    },
-    {
-      "type": "atlas",
-      "only": ["haproxy"],
-      "artifact": "{{user `atlas_username`}}/haproxy",
+      "only": ["ubuntu16-sandbox"],
+      "artifact": "{{user `atlas_username`}}/ubuntu16-sandbox",
       "artifact_type": "amazon.image",
       "metadata": {
         "created_at": "{{timestamp}}"

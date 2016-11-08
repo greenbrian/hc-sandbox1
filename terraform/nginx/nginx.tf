@@ -5,14 +5,14 @@ variable "nginx_server_count" {}
 variable "subnet_id" {}
 variable "xlb_sg_id" {}
 
-data "atlas_artifact" "nginx" {
-  name = "bgreen/nginx"
+data "atlas_artifact" "ubuntu16-sandbox" {
+  name = "bgreen/ubuntu16-sandbox"
   type = "amazon.image"
   build = "latest"
 }
 
 resource "aws_instance" "nginx" {
-    ami = "${data.atlas_artifact.nginx.metadata_full.region-us-east-1}"
+    ami = "${data.atlas_artifact.ubuntu16-sandbox.metadata_full.region-us-east-1}"
     instance_type = "t2.micro"
     count = "${var.nginx_server_count}"
     subnet_id = "${var.subnet_id}"

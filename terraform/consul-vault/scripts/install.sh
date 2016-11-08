@@ -20,7 +20,7 @@ CONSUL_FLAGS="\
 -ui-dir=/opt/consul-ui"
 EOF
 
-# setup consul UI specific iptables rules
+echo "Configuring Consul UI firewall rules..."
 sudo iptables -I INPUT -s 0/0 -p tcp --dport 8500 -j ACCEPT
 sudo iptables-save | sudo tee /etc/iptables.rules
 
@@ -33,7 +33,22 @@ CONSUL_FLAGS="\
 -join=${CONSUL_JOIN} \
 -data-dir=/opt/consul/data"
 EOF
+
+echo "Configuring Consul firewall rules..."
+sudo iptables -I INPUT -s 0/0 -p tcp --dport 8300 -j ACCEPT
+sudo iptables -I INPUT -s 0/0 -p tcp --dport 8301 -j ACCEPT
+sudo iptables -I INPUT -s 0/0 -p tcp --dport 8302 -j ACCEPT
+sudo iptables -I INPUT -s 0/0 -p tcp --dport 8400 -j ACCEPT
+sudo netfilter-persistent save
+sudo netfilter-persistent reload
+
 fi
 
 sudo chown root:root /etc/default/consul
 sudo chmod 0644 /etc/default/consul
+
+echo "Configuring Vault firewall rules..."
+sudo iptables -I INPUT -s 0/0 -p tcp --dport 8200 -j ACCEPT
+sudo iptables -I INPUT -s 0/0 -p tcp --dport 8125 -j ACCEPT
+sudo netfilter-persistent save
+sudo netfilter-persistent reload

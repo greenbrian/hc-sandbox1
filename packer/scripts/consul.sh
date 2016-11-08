@@ -16,14 +16,6 @@ sudo mv consul /usr/local/bin/consul
 sudo mkdir -p /opt/consul/data
 sudo mkdir -p /etc/systemd/system/consul.d
 
-echo "Configuring Consul firewall rules..."
-sudo iptables -I INPUT -s 0/0 -p tcp --dport 8300 -j ACCEPT
-sudo iptables -I INPUT -s 0/0 -p tcp --dport 8301 -j ACCEPT
-sudo iptables -I INPUT -s 0/0 -p tcp --dport 8302 -j ACCEPT
-sudo iptables -I INPUT -s 0/0 -p tcp --dport 8400 -j ACCEPT
-sudo netfilter-persistent save
-sudo netfilter-persistent reload
-
 echo "Installing Consul startup script..."
 sudo bash -c "cat >/etc/systemd/system/consul.service" << 'EOF'
 [Unit]
