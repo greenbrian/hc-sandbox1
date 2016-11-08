@@ -97,3 +97,6 @@ echo "Configuring Nginx firewall rules..."
 sudo iptables -I INPUT -s 0/0 -p tcp --dport 80 -j ACCEPT
 sudo netfilter-persistent save
 sudo netfilter-persistent reload
+
+sudo systemctl enable nginx.service
+sudo systemctl start nginx

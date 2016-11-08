@@ -117,3 +117,5 @@ template {
   backup = true
 }
 EOF
+sudo systemctl enable haproxy.service
+sudo systemctl start haproxy
